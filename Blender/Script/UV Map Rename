@@ -1,0 +1,22 @@
+import bpy
+
+# Définition des noms de l'ancienne et nouvelle UV Map
+old_uv_name = "UVMap"  # Nom actuel de l'UV Map
+new_uv_name = "Fabric"  # Nouveau nom souhaité
+
+# Vérifier si des objets sont sélectionnés
+selected_objects = [obj for obj in bpy.context.selected_objects if obj.type == 'MESH']
+
+if not selected_objects:
+    print("Aucun objet mesh sélectionné.")
+else:
+    for obj in selected_objects:
+        # Vérifier si l'objet possède l'ancienne UV Map
+        uv_layer = obj.data.uv_layers.get(old_uv_name)
+        if uv_layer:
+            uv_layer.name = new_uv_name  # Renommer l'UV Map
+            print(f"UV Map '{old_uv_name}' renommée en '{new_uv_name}' sur '{obj.name}'")
+        else:
+            print(f"L'UV Map '{old_uv_name}' n'existe pas sur '{obj.name}'.")
+
+print("Renommage terminé.")
